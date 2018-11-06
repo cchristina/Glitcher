@@ -7,6 +7,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from datetime import datetime, timedelta 
 
+from model import ImageChoice, Glitch, connect_to_db, db
 
 
 app = Flask(__name__)
@@ -28,7 +29,9 @@ def index():
 @app.route('/mainpage')
 def mainpage():
 
-    return render_template("mainpage.html") #rename this eventuallly 
+    images = ImageChoice.query.all()
+
+    return render_template("mainpage.html", images=images) #rename this eventuallly 
 
 
 
