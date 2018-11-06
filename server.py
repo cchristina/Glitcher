@@ -7,7 +7,6 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from datetime import datetime, timedelta 
 
-from model import User, Rating, Movie, connect_to_db, db
 
 
 app = Flask(__name__)
@@ -26,7 +25,10 @@ def index():
     """Homepage."""
     return render_template("home.html")
 
+@app.route('/mainpage')
+def mainpage():
 
+    return render_template("mainpage.html") #rename this eventuallly 
 
 
 
@@ -37,7 +39,6 @@ if __name__ == "__main__":
     # make sure templates, etc. are not cached in debug mode
     app.jinja_env.auto_reload = app.debug
 
-    connect_to_db(app)
 
     # Use the DebugToolbar
     DebugToolbarExtension(app)
