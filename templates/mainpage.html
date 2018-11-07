@@ -1,15 +1,76 @@
 {% extends 'base.html' %}
 
+
+
 {% block content %}
+
+
 
 <h1> Eventually you will glitch pix here! </h1>
 
 <a href = "/"> go back home </a>
 
-<!-- {% for image in images %}
+<br>
+<div id="thumbnails">
+{% for image in images %}
 
-test
+<img src ="{{image.url}}" style="max-height: 100px;" onclick="$('img#largeImage').attr('src', '{{image.url}}' );">
 
-{% endfor %} -->
+{% endfor %}
+</div>
 
+<div id="fullsize">
+
+<img id="largeImage" src="" style="max-width: 800px; max-height: 600px;">
+
+</div>
+
+
+<h4> choose two images to glitch!</h4><br>
+The first one will be the primary and the second will overlay. <!---see the uneven distribution is a feature not a bug but for real that's how most glitches are anyhow-->
+
+
+
+<form id ="imagechoices" action="/mainpage" method="POST">
+
+    {% for image in images %}
+    <input type="radio" name="imagelist" id="imagelist" value='{{image.url}}'> {{image.url}} <br>
+    
+
+    {% endfor %}
+<br><br><br>
+       {% for image in images %}
+    <input type="radio" name="imagelist2" id="imagelist2" value='{{image.url}}'> {{image.url}} <br>
+    
+
+    {% endfor %}
+
+    <input type="submit" value="submit">
+
+</form>
+
+
+<!-- 
+<form id ="imagechoices" action="/mainpage" method="POST">
+
+    <select>
+    {% for image in images %}
+
+    <option type="checkbox" name="imagelist" id="imagelist" value='{{image.url}}'> {{image.url}} </option>
+
+    {% endfor %}
+    </select>
+
+    
+    <select>
+    {% for image in images %}
+
+    <option type="checkbox" name="imagelist2" id="imagelist" value='{{image.url}}'> {{image.url}} </option>
+
+    {% endfor %}
+    </select>
+
+    <input type="submit" value="submit">
+
+</form> -->
 {% endblock %}
