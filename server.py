@@ -48,7 +48,7 @@ def mainpage():
         image1 = Image.open(request.form.get("imagelist")[3:])
         image2 = Image.open(request.form.get("imagelist2")[3:])
 
-        image3 = gs.pixelate_two(image1, image2, 10)
+        image3 = gs.pixelate_two_alt(image1, image2, 8)
 
         img3String = ("./static/images/generated/"+str(datetime.now())[-6:]+".jpg")
         image3.save(img3String)
