@@ -48,10 +48,16 @@ def mainpage():
         image1 = Image.open(request.form.get("imagelist")[3:])
         image2 = Image.open(request.form.get("imagelist2")[3:])
 
-        image3 = gs.pixelate_two_alt(image1, image2, 8)
+        # image3 = gs.pixelate_two_alt(image1, image2, 8)
+        img3String = ("./static/images/generated/"+str(datetime.now())[-6:]+".gif")
 
-        img3String = ("./static/images/generated/"+str(datetime.now())[-6:]+".jpg")
-        image3.save(img3String)
+        # image3 = gs.animate_two(image1, image2, 8, 8, img3String)
+
+        gs.animate_two(image1, image2, 8, 8, img3String)
+
+        # image3.save(img3String)
+
+
         #str(datetime.now())+".jpg"
 
         # print(type(request.form.get("imagelist")),"***", request.form.get("imagelist"))
