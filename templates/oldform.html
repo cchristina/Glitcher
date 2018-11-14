@@ -1,0 +1,22 @@
+<form id ="imagechoices" action="/mainpage" method="POST">
+
+    <select>
+    {% for image in images %}
+
+    <option type="checkbox" name="imagelist" id="imagelist" value='{{image.url}}'> {{image.url}} </option>
+
+    {% endfor %}
+    </select>
+
+    
+    <select>
+    {% for image in images %}
+
+    <option type="checkbox" name="imagelist2" id="imagelist" value='{{image.url}}'> {{image.url}} </option>
+
+    {% endfor %}
+    </select>
+
+    <input type="submit" value="submit">
+
+</form>
