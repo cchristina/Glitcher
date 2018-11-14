@@ -53,7 +53,7 @@ def mainpage():
 
         # image3 = gs.animate_two(image1, image2, 8, 8, img3String)
 
-        gs.animate_two(image1, image2, 8, 8, img3String)
+        gs.pixelate_two_alt(image1, image2, 8, img3String)
 
         # image3.save(img3String)
 
@@ -65,7 +65,7 @@ def mainpage():
         # print(type(request.form.get("imagelist")),"***", request.form.get("imagelist2"))
 
 
-        return render_template("glitchpage.html", images = images, newImage=img3String)
+        return render_template("glitchpage.html", images = images, oldImage = (request.form.get("imagelist")[3:]), newImage=img3String)
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the

@@ -36,7 +36,7 @@ def pixelate_two(imgA, imgB, cellsize):
 
     return imgC
 
-def pixelate_two_alt(imgA, imgB, cellsize):
+def pixelate_two_alt(imgA, imgB, cellsize, savestring):
     imgA.thumbnail((800, 800))
     imgB.thumbnail((800, 800))
     imgC = imgA
@@ -64,7 +64,9 @@ def pixelate_two_alt(imgA, imgB, cellsize):
                 region = imgB.crop(box)
 
             if random.randint(0,4)>-1:
-                imgC.paste(region,box)      
+                imgC.paste(region,box)    
+
+        imgC.save(savestring)  
     return imgC
 
 

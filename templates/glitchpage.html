@@ -2,6 +2,7 @@
 
 
 
+
 {% block content %}
 
 
@@ -26,7 +27,55 @@
 </div>
 
 
-<img src={{newImage}} style="max-width: 800px;">
+<img id="newImage" src={{newImage}} style="max-width: 800px; display: none;">
+
+  <canvas id="myCanvas" width="800" height="600" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML5 canvas tag.</canvas>
 
 
+
+<!-- <script type="text/javascript" src="../static/scripts/CA.js"> -->
+    <script>
+
+
+
+    window.onload = function() {
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+
+                
+};
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+
+    
+    cellMatrix[0][0]=1
+
+
+    (function myLoop (i) {          
+        setTimeout(function () {   
+
+            var img = new Image();
+
+            // img.src="detour.jpg";
+            img.src = "{{oldImage}}";
+            // img.src = "alaska.jpg";
+
+            var overlayImg = new Image();
+            // overlayImg.src = "detour14.jpg";
+            overlayImg.src = "{{newImage}}";
+            // overlayImg.src = "bird.jpg";
+
+            ctx.drawImage(img, 0, 0, 800, 800);
+            display_rects(overlayImg);
+
+
+
+
+            ;
+
+        if (--i) myLoop(i);      
+        }, 300)
+    })(500);  
+</script>
 {% endblock %}
