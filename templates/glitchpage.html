@@ -29,7 +29,7 @@
 
 <img id="newImage" src={{newImage}} style="max-width: 800px; display: none;">
 
-  <canvas id="myCanvas" width="800" height="600" style="border:1px solid #d3d3d3;">
+  <canvas id="myCanvas" width="800" height="600" style="border:1px solid #d3d3d3;"> <!-- onclick= "getCursorPosition"(document.getElementById('myCanvas'), (evt))"> -->
     Your browser does not support the HTML5 canvas tag.</canvas>
 
 
@@ -49,10 +49,35 @@
     var ctx = c.getContext("2d");
 
     
-    cellMatrix[0][0]=1
+
+    function getCursorPosition(canvas, event) {
+    var boundingRect = canvas.getBoundingClientRect();
+    var x = Math.floor((event.clientX - boundingRect.left)/16)+1;
+    var y = Math.floor((event.clientY - boundingRect.top)/16);
+
+    // cellMatrix[x][y] = 1;
 
 
-    (function myLoop (i) {          
+    console.log("x: " + x + " y: " + y + " CM: " + getCell(x,y));
+
+    console.log("orig: " + getCell(x,y));
+
+ 
+    flipCell(x,y);
+
+    console.log("flipped?: " + cellMatrix[x][y]);
+
+}
+
+
+myCanvas.addEventListener("mousedown", function (e) { getCursorPosition(myCanvas, e);});
+
+// myCanvas.addEventListener('click', getCursorPosition(myCanvas, this), false);
+
+
+    // getCursorPosition(document.getElementById("myCanvas"), "click");
+
+    (function caLoop (i) {          
         setTimeout(function () {   
 
             var img = new Image();
@@ -67,15 +92,15 @@
             // overlayImg.src = "bird.jpg";
 
             ctx.drawImage(img, 0, 0, 800, 800);
-            display_rects(overlayImg);
+            displayRects(overlayImg);
 
 
 
 
             ;
 
-        if (--i) myLoop(i);      
+        if (--i) caLoop(i);      
         }, 300)
-    })(500);  
+    })(5000);  
 </script>
 {% endblock %}

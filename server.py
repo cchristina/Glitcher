@@ -53,7 +53,7 @@ def mainpage():
 
         # image3 = gs.animate_two(image1, image2, 8, 8, img3String)
 
-        gs.pixelate_two_alt(image1, image2, 8, img3String)
+        gs.pixelate_two_alt(image1, image2, 16, img3String)
 
         # image3.save(img3String)
 
