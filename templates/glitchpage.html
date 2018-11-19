@@ -29,7 +29,12 @@
 
 <img id="newImage" src={{newImage}} style="max-width: 800px; display: none;">
 
-  <canvas id="myCanvas" width="800" height="600" style="border:1px solid #d3d3d3;"> <!-- onclick= "getCursorPosition"(document.getElementById('myCanvas'), (evt))"> -->
+
+    
+   <button onclick="stepGOL()">step</button>
+   <button onclick="switchRun()">start/stop</button> <br>
+    
+  <canvas draggable="true" id="myCanvas" width="800" height="600" style="border:1px solid #d3d3d3;"> <!-- onclick= "getCursorPosition"(document.getElementById('myCanvas'), (evt))"> -->
     Your browser does not support the HTML5 canvas tag.</canvas>
 
 
@@ -39,68 +44,108 @@
 
 
 
-    window.onload = function() {
-    var canvas = document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
+//     window.onload = function() {
+//     var canvas = document.getElementById("myCanvas");
+//     var ctx = canvas.getContext("2d");
 
                 
-};
+// };
     var c = document.getElementById("myCanvas");
     var ctx = c.getContext("2d");
 
     
 
+
+    var img = new Image();
+    img.src = "{{oldImage}}";
+
+
+    var overlayImg = new Image();
+    overlayImg.src = "{{newImage}}";
+
+
+
+
+
     function getCursorPosition(canvas, event) {
-    var boundingRect = canvas.getBoundingClientRect();
-    var x = Math.floor((event.clientX - boundingRect.left)/16)+1;
-    var y = Math.floor((event.clientY - boundingRect.top)/16);
+        var boundingRect = canvas.getBoundingClientRect();
+        var x = Math.floor((event.clientX - boundingRect.left)/16)+1;
+        var y = Math.floor((event.clientY - boundingRect.top)/16);
+        // var x = Math.floor((event.offsetX)/16)+1;
+        // var y = Math.floor((event.offsetY)/16);
 
-    // cellMatrix[x][y] = 1;
+        // cellMatrix[x][y] = 1;
 
 
-    console.log("x: " + x + " y: " + y + " CM: " + getCell(x,y));
-
-    console.log("orig: " + getCell(x,y));
+        console.log("x: " + x + " y: " + y + " CM: " + getCell(x,y));
+     
+        flipCell(x,y);
+        displayRects(overlayImg)
+    }
 
  
-    flipCell(x,y);
-
-    console.log("flipped?: " + cellMatrix[x][y]);
-
-}
 
 
-myCanvas.addEventListener("mousedown", function (e) { getCursorPosition(myCanvas, e);});
-
-// myCanvas.addEventListener('click', getCursorPosition(myCanvas, this), false);
+myCanvas.addEventListener("click", function (e) { getCursorPosition(myCanvas, e);});
 
 
-    // getCursorPosition(document.getElementById("myCanvas"), "click");
+
+
+
+
 
     (function caLoop (i) {          
         setTimeout(function () {   
 
-            var img = new Image();
-
-            // img.src="detour.jpg";
-            img.src = "{{oldImage}}";
-            // img.src = "alaska.jpg";
-
-            var overlayImg = new Image();
-            // overlayImg.src = "detour14.jpg";
-            overlayImg.src = "{{newImage}}";
-            // overlayImg.src = "bird.jpg";
+            if (willRun)
+            {
+                cellMatrix = gameOfLifeRound(cellMatrix);
+            }
 
             ctx.drawImage(img, 0, 0, 800, 800);
             displayRects(overlayImg);
 
-
-
-
             ;
 
         if (--i) caLoop(i);      
-        }, 300)
+        }, 500)
     })(5000);  
+
+
+    function stepGOL(){
+
+        cellMatrix = gameOfLifeRound(cellMatrix);
+    }
+
+
+    let willRun = false;
+
+    function switchRun(){
+
+        willRun = !willRun;
+
+    }
+
+
+
+    // let i = 1;
+    //  while(i<1000) {
+    //         setTimeout(function () {   
+
+
+
+    //             ctx.drawImage(img, 0, 0, 800, 800);
+    //             displayRects(overlayImg);
+
+    //             ;
+
+    //         }, 500)
+    //         i++;
+    // }
+
+
+
 </script>
+
+
 {% endblock %}
