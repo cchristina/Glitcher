@@ -49,13 +49,17 @@ def mainpage():
         image2 = Image.open(request.form.get("imagelist2")[3:])
 
         # image3 = gs.pixelate_two_alt(image1, image2, 8)
-        img3String = ("./static/images/generated/"+str(datetime.now())[-6:]+".gif")
+        img3String = ("./static/images/generated/"+str(datetime.now())[-6:]+".gif") 
 
         # image3 = gs.animate_two(image1, image2, 8, 8, img3String)
 
-        gs.pixelate_two_alt(image1, image2, 16, img3String)
+        gs.pixelate_two_alt(image1, image2, 8, img3String) #MOST RECENT
+
+        # image3 = Image.open("static/images/black.jpg")
+        # image3= image3s.resize((800,800))
 
         # image3.save(img3String)
+
 
 
         #str(datetime.now())+".jpg"

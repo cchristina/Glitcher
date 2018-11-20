@@ -27,14 +27,14 @@
 </div>
 
 
-<img id="newImage" src={{newImage}} style="max-width: 800px; display: none;">
+<!-- <img id="newImage" src={{newImage}} style="max-width: 800px; display: none;"> -->
 
 
     
-   <button onclick="stepGOL()">step</button>
-   <button onclick="switchRun()">start/stop</button> <br>
+<button onclick="stepGOL()">step</button>
+<button onclick="switchRun()">start/stop</button> <br>
     
-  <canvas draggable="true" id="myCanvas" width="800" height="600" style="border:1px solid #d3d3d3;"> <!-- onclick= "getCursorPosition"(document.getElementById('myCanvas'), (evt))"> -->
+<canvas  id="myCanvas" width="800" height="600" style="border:1px solid #d3d3d3;"> <!-- draggable="true" onclick= "changeCellsWithCursor"(document.getElementById('myCanvas'), (evt))"> -->
     Your browser does not support the HTML5 canvas tag.</canvas>
 
 
@@ -64,32 +64,73 @@
     overlayImg.src = "{{newImage}}";
 
 
+    let mouseDown = false;
+
+    let justChanged = []
 
 
 
-    function getCursorPosition(canvas, event) {
+
+    function changeCellsWithCursor(canvas, event) {
+
         var boundingRect = canvas.getBoundingClientRect();
-        var x = Math.floor((event.clientX - boundingRect.left)/16)+1;
-        var y = Math.floor((event.clientY - boundingRect.top)/16);
-        // var x = Math.floor((event.offsetX)/16)+1;
-        // var y = Math.floor((event.offsetY)/16);
-
-        // cellMatrix[x][y] = 1;
+        var x = Math.floor((event.clientX - boundingRect.left)/cellSize)+1;
+        var y = Math.floor((event.clientY - boundingRect.top)/cellSize);
+        // var x = Math.floor((event.offsetX)/cellSize)+1;
+        // var y = Math.floor((event.offsetY)/cellSize);
 
 
-        console.log("x: " + x + " y: " + y + " CM: " + getCell(x,y));
+        // console.log("x: " + x + " y: " + y + " CM: " + getCell(x,y));
+     
+
+            
+
+        if (mouseDown  /*&& !justChanged.includes((x,y))*/) {
+                flipCell(x,y);
+
+                displayRects(overlayImg)
+
+                justChanged.push((x,y));
+
+
+
+        }//if (event == "click")
+
+    }
+
+
+    function changeCellWithClick(canvas, event){
+
+        var boundingRect = canvas.getBoundingClientRect();
+        var x = Math.floor((event.clientX - boundingRect.left)/cellSize)+1;
+        var y = Math.floor((event.clientY - boundingRect.top)/cellSize);
+
+
      
         flipCell(x,y);
         displayRects(overlayImg)
     }
-
  
 
+myCanvas.addEventListener("mousemove", function (e) { changeCellsWithCursor(myCanvas, e);});
+myCanvas.addEventListener("click", function (e) { changeCellWithClick(myCanvas, e);});
 
-myCanvas.addEventListener("click", function (e) { getCursorPosition(myCanvas, e);});
+myCanvas.addEventListener("mousedown", function(e) {isMouseDown(e)});
+myCanvas.addEventListener("mouseup", function(e) {isMouseUp(e)});
+
+function isMouseDown(event){
 
 
+    mouseDown = true;
+    return true;
+}
 
+function isMouseUp(event){
+
+    mouseDown = false;
+    justChanged = []
+    return true;
+}
 
 
 
