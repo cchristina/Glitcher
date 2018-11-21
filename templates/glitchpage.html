@@ -34,7 +34,7 @@
 <button onclick="stepGOL()">step</button>
 <button onclick="switchRun()">start/stop</button> <br>
     
-<canvas  id="myCanvas" width="800" height="600" style="border:1px solid #d3d3d3;"> <!-- draggable="true" onclick= "changeCellsWithCursor"(document.getElementById('myCanvas'), (evt))"> -->
+<canvas  id="myCanvas" width="{{canvas_width}}" height="{{canvas_height}}" style="border:1px solid #d3d3d3;"> <!-- draggable="true" onclick= "changeCellsWithCursor"(document.getElementById('myCanvas'), (evt))"> -->
     Your browser does not support the HTML5 canvas tag.</canvas>
 
 
@@ -74,27 +74,51 @@
     function changeCellsWithCursor(canvas, event) {
 
         var boundingRect = canvas.getBoundingClientRect();
-        var x = Math.floor((event.clientX - boundingRect.left)/cellSize)+1;
-        var y = Math.floor((event.clientY - boundingRect.top)/cellSize);
+        var x = Math.floor((event.clientX - boundingRect.left)/cellSize) +2; //+1;
+        var y = Math.floor((event.clientY - boundingRect.top)/cellSize)+1;
         // var x = Math.floor((event.offsetX)/cellSize)+1;
         // var y = Math.floor((event.offsetY)/cellSize);
 
 
         // console.log("x: " + x + " y: " + y + " CM: " + getCell(x,y));
-     
 
-            
+        let slot = y*matrixSize+x
 
-        if (mouseDown  /*&& !justChanged.includes((x,y))*/) {
+        var eType = event.type
+
+        if (eType == "click"){
+                
                 flipCell(x,y);
-
                 displayRects(overlayImg)
-
-                justChanged.push((x,y));
-
+             }
 
 
-        }//if (event == "click")
+        if (mouseDown  && !justChanged.includes(slot)) {
+                
+
+                    // flipCell(x,y);
+
+                    if (!event.shiftKey){
+                      cellMatrix[x][y] = 1;  
+                    }else{
+
+                        cellMatrix[x][y] = 0; 
+                    }
+                    
+                    justChanged.push(slot);
+                    displayRects(overlayImg)
+
+
+
+
+                // justChanged.push([x,y]);
+
+                // console.log(justChanged);
+
+
+
+
+        }
 
     }
 
@@ -113,7 +137,7 @@
  
 
 myCanvas.addEventListener("mousemove", function (e) { changeCellsWithCursor(myCanvas, e);});
-myCanvas.addEventListener("click", function (e) { changeCellWithClick(myCanvas, e);});
+myCanvas.addEventListener("click", function (e) { changeCellsWithCursor(myCanvas, e);});
 
 myCanvas.addEventListener("mousedown", function(e) {isMouseDown(e)});
 myCanvas.addEventListener("mouseup", function(e) {isMouseUp(e)});
@@ -149,7 +173,7 @@ function isMouseUp(event){
             ;
 
         if (--i) caLoop(i);      
-        }, 500)
+        }, 100)
     })(5000);  
 
 
@@ -169,20 +193,6 @@ function isMouseUp(event){
 
 
 
-    // let i = 1;
-    //  while(i<1000) {
-    //         setTimeout(function () {   
-
-
-
-    //             ctx.drawImage(img, 0, 0, 800, 800);
-    //             displayRects(overlayImg);
-
-    //             ;
-
-    //         }, 500)
-    //         i++;
-    // }
 
 
 

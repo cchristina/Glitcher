@@ -55,11 +55,13 @@ def mainpage():
 
         gs.pixelate_two_alt(image1, image2, 8, img3String) #MOST RECENT
 
+        canvas_width = image1.size[0]
+        canvas_height = image1.size[1]
+
         # image3 = Image.open("static/images/black.jpg")
-        # image3= image3s.resize((800,800))
+        # image3= image3.resize((canvas_width,canvas_height))
 
         # image3.save(img3String)
-
 
 
         #str(datetime.now())+".jpg"
@@ -69,7 +71,7 @@ def mainpage():
         # print(type(request.form.get("imagelist")),"***", request.form.get("imagelist2"))
 
 
-        return render_template("glitchpage.html", images = images, oldImage = (request.form.get("imagelist")[3:]), newImage=img3String)
+        return render_template("glitchpage.html", images = images, oldImage = (request.form.get("imagelist")[3:]), newImage=img3String, canvas_height = canvas_height, canvas_width = canvas_width)
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
