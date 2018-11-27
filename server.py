@@ -46,9 +46,10 @@ def mainpage():
     else:
 
         newimages = request.form.getlist('imagelist')
+        glitchtype = request.form.get('glitchtype')
 
 
-        print(newimages[0], newimages[1], "*###TEST#######***")
+
 
         # image1 = Image.open(request.form.get("imagelist")[3:])
         # image2 = Image.open(request.form.get("imagelist2")[3:])
@@ -61,7 +62,7 @@ def mainpage():
         if (len(newimages) ==2):
             image2 = Image.open(newimages[1][3:])
         else:
-            image2 = Image.open(newimages[1][3:])
+            image2 = Image.open(newimages[0][3:])
 
 
         image1 = image1.resize((min(800, int(image1.size[0]*800/image1.size[1])),
@@ -78,9 +79,12 @@ def mainpage():
         img3String = ("./static/images/generated/"+str(datetime.now())[-6:]+".gif") 
 
 
-
-        # gs.pixelate_two_alt(image1, image2, 8, img3String) 
-        image3 = gs.doub_grid(image2, 32, img3String)
+        if (glitchtype == "pixely"):
+           image3 = gs.pixelate_two_alt(image1, image2, 8, img3String) 
+        
+        elif(glitchtype=="grid"):
+            image3 = gs.doub_grid(image2, 32, img3String)
+    
         image3 = image3.resize(
             (min(800, int(image3.size[0]*800/image3.size[1])),
                 min(800, int(image3.size[1]*800/image3.size[0]))))
