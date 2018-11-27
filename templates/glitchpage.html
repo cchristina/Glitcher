@@ -30,9 +30,10 @@
 <!-- <img id="newImage" src={{newImage}} style="max-width: 800px; display: none;"> -->
 
 
-    
-<button onclick="stepGOL()">step</button>
-<button onclick="switchRun()">start/stop</button> <br>
+<br><br>
+<button onclick="switchRun()">start/stop</button> 
+<button id="stepButton" onclick="stepGOL()">step</button>
+<br><br>
     
 <canvas  id="myCanvas" width="{{canvas_width}}" height="{{canvas_height}}" style="border:1px solid #d3d3d3;"> <!-- draggable="true" onclick= "changeCellsWithCursor"(document.getElementById('myCanvas'), (evt))"> -->
     Your browser does not support the HTML5 canvas tag.</canvas>
@@ -189,11 +190,26 @@ function isMouseUp(event){
 
         willRun = !willRun;
 
+        var x = document.getElementById("stepButton");
+        if (x.style.display === "none") {
+             x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+
+
     }
 
 
 
-
+// function showHideStep() {
+//         var x = document.getElementById("stepButton");
+//         if (x.style.display === "none") {
+//              x.style.display = "block";
+//         } else {
+//           x.style.display = "none";
+//         }
+//     }
 
 
 </script>

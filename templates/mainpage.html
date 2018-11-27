@@ -11,19 +11,19 @@
 <a href = "/"> go back home </a>
 
 <br>
-<div id="thumbnails">
+<!-- <div id="thumbnails">
 {% for image in images %}
 
 <img src ="{{image.url}}" style="max-height: 100px;" onclick="$('img#largeImage').attr('src', '{{image.url}}' );">
 
 {% endfor %}
 </div>
-
-<div id="fullsize">
+ -->
+<!-- <div id="fullsize">
 
 <img id="largeImage" src="" style="max-width: 800px; max-height: 600px;">
 
-</div>
+</div> -->
 
 
 <h4> choose two images to glitch!</h4><br>
@@ -31,7 +31,7 @@ The first one will be the primary and the second will overlay. Or you can select
 
 
 
-<form id ="imagechoices" action="/mainpage" method="POST">
+<form id ="imagechoices" name="imagechoices" action="/mainpage" method="POST">
 
     {% for image in images %}
     <input type="radio" name="imagelist" id="imagelist" value='{{image.url}}'> {{image.url}} <br>
@@ -39,38 +39,47 @@ The first one will be the primary and the second will overlay. Or you can select
 
     {% endfor %}
 <br><br><br>
-       {% for image in images %}
+
+     {% for image in images %}
     <input type="radio" name="imagelist2" id="imagelist2" value='{{image.url}}'> {{image.url}} <br>
-    
+
+  
+   
+
 
     {% endfor %}
+    
+<select class="image-picker masonry show-html" data-limit="2" multiple="multiple" name="imagelist" id="imagelist">
+       {% for image in images %}
+    <!-- <input type="radio" name="imagelist2" id="imagelist2" value='{{image.url}}'> {{image.url}} <br> -->
+
+  
+   
+    <option data-img-src="{{image.url}}"  data-img-alt="{{image.url}}" value="{{image.url}}">  </option>
+
+
+    {% endfor %}
+</select>
+
+
 
     <input type="submit" value="submit">
 
 </form>
 
 
-<!-- 
-<form id ="imagechoices" action="/mainpage" method="POST">
 
-    <select>
-    {% for image in images %}
 
-    <option type="checkbox" name="imagelist" id="imagelist" value='{{image.url}}'> {{image.url}} </option>
 
-    {% endfor %}
-    </select>
 
-    
-    <select>
-    {% for image in images %}
+<script>
+    $("select").imagepicker()
 
-    <option type="checkbox" name="imagelist2" id="imagelist" value='{{image.url}}'> {{image.url}} </option>
+    $('.grid').masonry({
+  // options...
+  itemSelector: '.grid-item',
+  columnWidth: 200
+});
 
-    {% endfor %}
-    </select>
-
-    <input type="submit" value="submit">
-
-</form> -->
+</script>
 {% endblock %}

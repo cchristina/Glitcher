@@ -45,30 +45,61 @@ def mainpage():
     
     else:
 
-        image1 = Image.open(request.form.get("imagelist")[3:])
-        image2 = Image.open(request.form.get("imagelist2")[3:])
+        newimages = request.form.getlist('imagelist')
 
-        # image3 = gs.pixelate_two_alt(image1, image2, 8)
+
+        print(newimages[0], newimages[1], "*###TEST#######***")
+
+        # image1 = Image.open(request.form.get("imagelist")[3:])
+        # image2 = Image.open(request.form.get("imagelist2")[3:])
+
+        image1 = Image.open(newimages[0][3:])
+
+
+
+
+        if (len(newimages) ==2):
+            image2 = Image.open(newimages[1][3:])
+        else:
+            image2 = Image.open(newimages[1][3:])
+
+
+        image1 = image1.resize((min(800, int(image1.size[0]*800/image1.size[1])),
+                min(800, int(image1.size[1]*800/image1.size[0]))))
+
+        image2 = image2.resize(
+            (min(800, int(image2.size[0]*800/image2.size[1])),
+                min(800, int(image2.size[1]*800/image2.size[0]))))
+
+
+
+
+
         img3String = ("./static/images/generated/"+str(datetime.now())[-6:]+".gif") 
 
-        # image3 = gs.animate_two(image1, image2, 8, 8, img3String)
 
-        gs.pixelate_two_alt(image1, image2, 8, img3String) #MOST RECENT
+
+        # gs.pixelate_two_alt(image1, image2, 8, img3String) 
+        image3 = gs.doub_grid(image2, 32, img3String)
+        image3 = image3.resize(
+            (min(800, int(image3.size[0]*800/image3.size[1])),
+                min(800, int(image3.size[1]*800/image3.size[0]))))
+        # image3.resize((800,800))
+
+
+        image3.save(img3String)
 
         canvas_width = image1.size[0]
         canvas_height = image1.size[1]
 
-        # image3 = Image.open("static/images/black.jpg")
-        # image3= image3.resize((canvas_width,canvas_height))
 
-        # image3.save(img3String)
+
+
+
 
 
         #str(datetime.now())+".jpg"
 
-        # print(type(request.form.get("imagelist")),"***", request.form.get("imagelist"))
-        # print(type(request.form.get("imagelist")),"***", request.form.get("imagelist2"))
-        # print(type(request.form.get("imagelist")),"***", request.form.get("imagelist2"))
 
 
         return render_template("glitchpage.html", images = images, oldImage = (request.form.get("imagelist")[3:]), newImage=img3String, canvas_height = canvas_height, canvas_width = canvas_width)

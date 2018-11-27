@@ -164,6 +164,91 @@ def animate_two(imgA, imgB, cellsize, frames, savestring):
 
 
 
+
+# def doub_vert_stripes(img, stripes, savestring):
+
+#     new_img = img
+
+#     stripe_size = int(img.size[0]*2/stripes)
+
+#     for i in range(0,img.size[0]*2,stripe_size):
+
+#         crop_box = (i,0, i+2*stripe_size, img.size[1])
+#         paste_box = (2*i, 0,  int((i*2)+2*stripe_size), img.size[1] )
+#         region = img.crop(crop_box)
+
+#         new_img.paste(region, paste_box)
+#     new_img.save(savestring) 
+#     return new_img  
+
+
+
+# def doub_hor_stripes(img, stripes, savestring):
+    
+#     savestring = savestring[:-4]+"h"+savestring[-4:]
+
+
+#     new_img = img
+
+
+
+#     stripe_size = int(img.size[1]*2/stripes)
+
+#     for i in range(0,img.size[1]*2,stripe_size):
+
+#         crop_box = (0, i, img.size[0], i+2*stripe_size)
+#         paste_box = (0, 2*i, img.size[0], int((i*2)+2*stripe_size))
+#         region = img.crop(crop_box)
+
+#         new_img.paste(region, paste_box)
+#     new_img.save(savestring)
+
+#     return new_img   
+
+
+# def doub_grid(img, stripes, savestring):
+    
+#     return doub_hor_stripes(doub_vert_stripes(img, stripes, savestring), stripes, savestring)
+
+
+
+def doub_vert_stripes(img, stripes, savestring):
+    new_img = img.resize((img.size[0]*2, img.size[1]))
+    stripe_size = int(img.size[0]*2/stripes)
+
+    for i in range(0,img.size[0],stripe_size):
+
+        crop_box = (i,0, i+2*stripe_size, img.size[1])
+        paste_box = (2*i, 0,  int((i*2)+2*stripe_size), img.size[1] )
+        region = img.crop(crop_box)
+
+        new_img.paste(region, paste_box)
+    new_img.save(savestring+".jpg") 
+    return new_img  
+
+
+
+def doub_hor_stripes(img, stripes, savestring):
+    new_img = img.resize((img.size[0], img.size[1]*2))
+    stripe_size = int(img.size[1]*2/stripes)
+
+    for i in range(0,img.size[1],stripe_size):
+
+        crop_box = (0, i, img.size[0], i+2*stripe_size)
+        paste_box = (0, 2*i, img.size[0], int((i*2)+2*stripe_size))
+        region = img.crop(crop_box)
+
+        new_img.paste(region, paste_box)
+    new_img.save(savestring+".jpg")
+
+    return new_img   
+
+
+def doub_grid(img, stripes, savestring):
+    
+    return doub_hor_stripes(doub_vert_stripes(img, stripes, savestring), stripes, savestring)
+
+
 if __name__ == '__main__':
     
     pixelate_two(img1, img2, 16)
