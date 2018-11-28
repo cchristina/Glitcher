@@ -11,43 +11,19 @@
 <a href = "/"> go back home </a>
 
 <br>
-<!-- <div id="thumbnails">
-{% for image in images %}
 
-<img src ="{{image.url}}" style="max-height: 100px;" onclick="$('img#largeImage').attr('src', '{{image.url}}' );">
 
-{% endfor %}
-</div>
- -->
-<!-- <div id="fullsize">
 
-<img id="largeImage" src="" style="max-width: 800px; max-height: 600px;">
-
-</div> -->
 
 
 <h4> choose two images to glitch!</h4><br>
-The first one will be the primary and the second will overlay. Or you can select the same one twice to glitch just itself.<!---see the uneven distribution is a feature not a bug but for real that's how most glitches are anyhow-->
+The first one you click will be the primary and the second will overlay. Or you can select just one to glitch just itself.<!---see the uneven distribution is a feature not a bug but for real that's how most glitches are anyhow-->
 
 
 
 <form id ="imagechoices" name="imagechoices" action="/mainpage" method="POST">
 
-   <!--  {% for image in images %}
-    <input type="radio" name="imagelist" id="imagelist" value='{{image.url}}'> {{image.url}} <br>
-    
 
-    {% endfor %}
-<br><br><br>
-
-     {% for image in images %}
-    <input type="radio" name="imagelist2" id="imagelist2" value='{{image.url}}'> {{image.url}} <br>
-
-  
-   
-
-
-    {% endfor %} -->
 
 <select class="image-picker masonry show-html" data-limit="2" multiple="multiple" name="imagelist" id="imagelist">
        {% for image in images %}
@@ -61,13 +37,22 @@ The first one will be the primary and the second will overlay. Or you can select
     {% endfor %}
 </select>
 
+
+
     <input type="radio" name="glitchtype" value="grid"> grid <br>
-    <input type="radio" name="glitchtype" value="pixely"> piexely <br>
+    <input type="radio" name="glitchtype" value="pixely"> pixely <br>
 
 
     <input type="submit" value="submit">
 
-</form>
+
+
+
+<div id="dropzoneDiv">
+  
+  {{ dropzone.create(action_view='upload_image') }}
+
+</div>
 
 
 
@@ -75,6 +60,9 @@ The first one will be the primary and the second will overlay. Or you can select
 
 
 <script>
+
+
+
     $("select").imagepicker()
 
     $('.grid').masonry({
@@ -83,5 +71,26 @@ The first one will be the primary and the second will overlay. Or you can select
   columnWidth: 200
 });
 
+
+
+
 </script>
+
+
+<script src="../static/scripts/dropzone.js"> 
+
+
+var myDropzone = new Dropzone("div#dropzoneUpload", { url: "/imageUpload"});
+
+$("div#dropzoneUpload").dropzone({ 
+  url: "/imageUpload";
+  acceptedFiles: 'image/*';
+ });
+
+
+
+
+</script>
+
+
 {% endblock %}
