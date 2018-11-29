@@ -5,8 +5,12 @@
 <script src="../static/scripts/CA.js"> </script>
 <script src="../static/scripts/dropzone.js"> </script>
 <script src="../static/scripts/image-picker.js"> </script>
+<!-- <script src="../static/scripts/FileSaver.js"> </script> -->
 <!-- <script src="../static/scripts/masonry.js"> </script> -->
+
+
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="../static/scripts/imagesloaded.pkgd.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="../static/style/image-picker.css">
 <link rel="stylesheet" type="text/css" href="../static/style/dropzone.css">
@@ -15,6 +19,18 @@
         {{ dropzone.load() }}
         {{ dropzone.style('border: 2px dashed #0087F7; margin: 10%; min-height: 400px;') }}
 
+
+<style>
+/*.grid-item { width: 200px; }*/
+.grid-item {
+  float: left;
+  width: 80px;
+  height: 60px;
+  border: 2px solid hsla(0, 0%, 0%, 0.5);
+}
+
+.grid-item--width2 { width: 400px; }
+</style>
 </head>
 
 

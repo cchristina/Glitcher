@@ -26,9 +26,12 @@ function populateBoard(){
 
         for (let j = 0; j < matrixSize ; j++){
             let cellVal=0;
+            // let cellVal = j%2;
             
             if (Math.floor(Math.random() * 11) > 6){
                 cellVal = 1 ;
+                // let cellVal = (j-1)%2;
+
             }
             
             cellRow.push(cellVal);
@@ -47,7 +50,7 @@ function populateOneD(){
 
     for (let i = 0; i < matrixSize; i++){
 
-        tempCells.push(Math.random() * 2);
+        tempCells.push(Math.floor(Math.random() * 2));
 
 
     }
@@ -106,7 +109,7 @@ function oneDNextRow(row, rules){
 
     let newRow = []
 
-    for (i=0; i<row.length; i++){
+    for (let i=0; i<row.length; i++){
         if (i==0 || i==row.length-1){
             newRow.push(row[i]);
         }
@@ -128,7 +131,7 @@ function addRows(matrix, row, rules){
     
     matrix.push(row);
     for (let i = 1; i < matrixSize; i++){
-        matrix.push(matrix[i-1], rules)
+        matrix.push(oneDNextRow(matrix[i-1], rules));
     }
 
 
@@ -343,8 +346,104 @@ function displayRects(img){
 
 
 
+function displayRects1D(img){
 
-cellMatrix = populateBoard();
+
+
+    // cellMatrix = gameOfLifeRound(cellMatrix);
+
+    for (let j = 0; j < cellMatrix.length; j++){
+
+        ctx.beginPath();
+        ctx.strokeStyle="#cccccc";
+        ctx.moveTo(j,0);
+        ctx.lineTo(j, cellMatrix.length);
+        ctx.stroke();
+
+        for (let k = 0; k<cellMatrix.length; k++){
+
+            if (cellMatrix[j+1][k+1]==1){
+
+                ctx.beginPath();
+                ctx.lineWidth=".3";
+                ctx.strokeStyle="#cccccc";
+                ctx.fillStyle = "#4010aa";
+                // ctx.globalAlpha = 0.9;
+                ctx.drawImage(img, j*cellSize, k*cellSize, cellSize, cellSize, j*cellSize-cellSize,k*cellSize, cellSize, cellSize);
+                ctx.restore();
+
+                // ctx.rect(j*cellSize,k*cellSize, cellSize, cellSize);
+                ctx.stroke();
+
+            }
+        }  
+    }
+}
+
+
+
+    function changeCellsWithCursor(canvas, event) {
+
+        var boundingRect = canvas.getBoundingClientRect();
+        var x = Math.floor((event.clientX - boundingRect.left)/cellSize) +2; //+1;
+        var y = Math.floor((event.clientY - boundingRect.top)/cellSize)+1;
+        // var x = Math.floor((event.offsetX)/cellSize)+1;
+        // var y = Math.floor((event.offsetY)/cellSize);
+
+        let slot = y*matrixSize+x
+
+        var eType = event.type
+
+        if (eType == "click"){
+                
+                flipCell(x,y);
+                displayRects(overlayImg)
+             }
+
+
+        if (mouseDown  && !justChanged.includes(slot)) {
+                
+
+                    // flipCell(x,y);
+
+                    if (!event.shiftKey){
+                      cellMatrix[x][y] = 1;  
+                    }else{
+
+                        cellMatrix[x][y] = 0; 
+                    }
+                    
+                    justChanged.push(slot);
+                    displayRects(overlayImg)
+
+
+
+
+        }
+
+    }
+
+
+function oneDBoard(firstRow, rule){
+
+    let prevRow = firstRow;
+    console.log(firstRow);
+    console.log(prevRow);
+    for (let i = 0; i < matrixSize ; i++){
+
+        cellMatrix.push(prevRow);
+        prevRow = oneDNextRow(prevRow, rule);
+
+
+    }
+
+
+
+
+}
+// cellMatrix = populateBoard();
+
+
 
 // var c = document.getElementById("myCanvas");
 // var ctx = c.getContext("2d");

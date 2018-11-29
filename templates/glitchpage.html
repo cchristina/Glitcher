@@ -33,6 +33,11 @@
 <br><br>
 <button onclick="switchRun()">start/stop</button> 
 <button id="stepButton" onclick="stepGOL()">step</button>
+<input type="range" min="1" max="1000" value="500" class="slider" id="speedControl" label="speed" style="display:none"><br>
+
+<button id="save" onclick="getURL()">save</button>
+
+
 <br><br>
     
 <canvas  id="myCanvas" width="{{canvas_width}}" height="{{canvas_height}}" style="border:1px solid #d3d3d3;"> <!-- draggable="true" onclick= "changeCellsWithCursor"(document.getElementById('myCanvas'), (evt))"> -->
@@ -43,6 +48,11 @@
 <!-- <script type="text/javascript" src="../static/scripts/CA.js"> -->
     <script>
 
+// import saveAs from 'FileSaver';
+
+
+cellMatrix = populateBoard();
+// cellMatrix = oneDBoard(populateOneD(), 110);
 
 
 //     window.onload = function() {
@@ -70,58 +80,62 @@
     let justChanged = []
 
 
+    var slider = document.getElementById("speedControl");
+
+    let speed = 1000 - slider.value;
+
+    // output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+    // output.innerHTML = this.value;
+    console.log(this.value);
+    speed = 1000 - this.value;
+}
 
 
-    function changeCellsWithCursor(canvas, event) {
-
-        var boundingRect = canvas.getBoundingClientRect();
-        var x = Math.floor((event.clientX - boundingRect.left)/cellSize) +2; //+1;
-        var y = Math.floor((event.clientY - boundingRect.top)/cellSize)+1;
-        // var x = Math.floor((event.offsetX)/cellSize)+1;
-        // var y = Math.floor((event.offsetY)/cellSize);
 
 
-        // console.log("x: " + x + " y: " + y + " CM: " + getCell(x,y));
+    // function changeCellsWithCursor(canvas, event) {
 
-        let slot = y*matrixSize+x
+    //     var boundingRect = canvas.getBoundingClientRect();
+    //     var x = Math.floor((event.clientX - boundingRect.left)/cellSize) +2; //+1;
+    //     var y = Math.floor((event.clientY - boundingRect.top)/cellSize)+1;
+    //     // var x = Math.floor((event.offsetX)/cellSize)+1;
+    //     // var y = Math.floor((event.offsetY)/cellSize);
 
-        var eType = event.type
+    //     let slot = y*matrixSize+x
 
-        if (eType == "click"){
+    //     var eType = event.type
+
+    //     if (eType == "click"){
                 
-                flipCell(x,y);
-                displayRects(overlayImg)
-             }
+    //             flipCell(x,y);
+    //             displayRects(overlayImg)
+    //          }
 
 
-        if (mouseDown  && !justChanged.includes(slot)) {
+    //     if (mouseDown  && !justChanged.includes(slot)) {
                 
 
-                    // flipCell(x,y);
+    //                 // flipCell(x,y);
 
-                    if (!event.shiftKey){
-                      cellMatrix[x][y] = 1;  
-                    }else{
+    //                 if (!event.shiftKey){
+    //                   cellMatrix[x][y] = 1;  
+    //                 }else{
 
-                        cellMatrix[x][y] = 0; 
-                    }
+    //                     cellMatrix[x][y] = 0; 
+    //                 }
                     
-                    justChanged.push(slot);
-                    displayRects(overlayImg)
+    //                 justChanged.push(slot);
+    //                 displayRects(overlayImg)
 
 
 
 
-                // justChanged.push([x,y]);
+    //     }
 
-                // console.log(justChanged);
-
-
-
-
-        }
-
-    }
+    // }
 
 
     function changeCellWithClick(canvas, event){
@@ -174,7 +188,7 @@ function isMouseUp(event){
             ;
 
         if (--i) caLoop(i);      
-        }, 100)
+        }, speed) //100)
     })(5000);  
 
 
@@ -196,20 +210,57 @@ function isMouseUp(event){
         } else {
           x.style.display = "none";
         }
+        x = document.getElementById("speedControl");
+        if (x.style.display === "none") {
+             x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
 
 
     }
 
 
+function getURL(){
+    let canvas = document.getElementById('myCanvas');
+    let url = canvas.toDataURL();
 
-// function showHideStep() {
-//         var x = document.getElementById("stepButton");
-//         if (x.style.display === "none") {
-//              x.style.display = "block";
-//         } else {
-//           x.style.display = "none";
-//         }
-//     }
+    // return url;
+
+    // console.log(dataURL);
+    // window.open(canvas.toDataURL());
+
+    var savefile = prompt("What would you like to save as? Be careful not to overwrite anything!", "myglitch");
+    // saveAs(url, savefile + ".png");
+    var a = document.createElement("a");
+    a.href = url;
+    fileName = url.split("/").pop();
+    a.download = savefile;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    a.remove();
+}
+
+// function saveImage(){
+
+//     let canvas = document.getElementById('myCanvas');
+
+//     var link = document.createElement("a");
+
+//     link.download = "image.png";
+
+//     canvas.toBlob(function(blob){
+//     link.href = URL.createObjectURL(blob);
+//     console.log(blob);
+//     console.log(link.href); // this line should be here
+//   },'image/png');
+
+
+//   link.click();
+
+// }
+
 
 
 </script>

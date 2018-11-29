@@ -27,19 +27,23 @@ TODO: animation breaks things
 
 <form id ="imagechoices" name="imagechoices" action="/mainpage" method="POST">
 
-<div style="height:400px; width:800px; overflow-y: scroll;">
+<div style="height:400px; overflow-y: scroll;">
 
-<select class="image-picker masonry show-html" data-limit="2" multiple="multiple" name="imagelist" id="imagelist">
+<select class="image-picker grid show-html" data-limit="2" multiple="multiple" name="imagelist" id="imagelist">
        {% for image in images %}
     <!-- <input type="radio" name="imagelist2" id="imagelist2" value='{{image.url}}'> {{image.url}} <br> -->
 
-  
+    <div class="grid-item grid-item--width2">
    
     <option data-img-src="{{image.url}}"  data-img-alt="{{image.url}}" value="{{image.url}}">  </option>
+
+    </div>
 
 
     {% endfor %}
 </select>
+
+</div>
 
 </div>
 
@@ -52,11 +56,11 @@ TODO: animation breaks things
 </form>
 
 
-<div id="dropzoneDiv">
+<!-- <div id="dropzoneDiv">
   
   {{ dropzone.create(action_view='upload_image') }}
 
-</div>
+</div> -->
 
 
 
@@ -69,12 +73,16 @@ TODO: animation breaks things
 
     $("select").imagepicker()
 
-    $('.grid').masonry({
-  // options...
-  itemSelector: '.grid-item',
-  columnWidth: 200
-});
 
+
+var $grid = $('.grid').imagesLoaded( function() {
+  // init Masonry after all images have loaded
+  $grid.masonry({
+    // options...
+    itemSelector: '.grid-item',
+    columnWidth: 200
+  });
+});
 
 
 

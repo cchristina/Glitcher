@@ -141,7 +141,7 @@ def upload_image():
     
     # set session for image results
     if "file_urls" not in session:
-        # print("file urls not in session**********")
+
         session['file_urls'] = []
 
 
@@ -149,7 +149,7 @@ def upload_image():
     file_urls = session['file_urls']
     # handle image upload from Dropzone
     if request.method == 'POST':
-        print("IM GETTING THIS FAR LOOK AT ME LOOK AT ME")
+
         file_obj = request.files
         for f in file_obj:
             file = request.files.get(f)
@@ -161,12 +161,12 @@ def upload_image():
             )
             # append image urls
             file_urls.append(photos.url(filename))
-            print(filename, "****************************")
+
             
         session['file_urls'] = file_urls
         return "uploading..."
     # return dropzone template on GET request  
-    print("I guess it's a get rquest but wejjh#################")  
+
     return render_template('uploadimage.html')
 
 
@@ -184,7 +184,7 @@ def results():
 
     for fu in file_urls:
         #../static/images/
-        print(fu, "FUUUUUFUFUFUFUFUFUFUFUFU")
+
         splt_fu = fu.split('/')
         new_url = "../static/images/uploads/" + splt_fu[-1]
         new_image = ImageChoice(url=new_url)
@@ -200,20 +200,61 @@ def results():
 
 @app.route('/mainpage', methods = ["GET", "POST"])
 def mainpage():
-    
+
 
     images = ImageChoice.query.all()
-    
+
+    ##start maybe###
+    if "file_urls" not in session:
+        session['file_urls'] = []
+
+
+    # list to hold our uploaded image urls
+    file_urls = session['file_urls']
+    ###end maybr ###
 
     if (request.method=="GET"):
         return render_template("mainpage.html", images=images) #rename this eventuallly 
     
     else:
 
+        ###START MAYBE ###
+        # if session['file_urls']:
+        #     file_obj = request.files
+        #     for f in file_obj:
+        #         file = request.files.get(f)
+                
+        #         # save the file with to our photos folder
+        #         filename = photos.save(
+        #             file,
+        #             name=file.filename    
+        #         )
+        #         # append image urls
+        #         file_urls.append(photos.url(filename))
+        #     file_urls = session['file_urls']
+        #     session.pop('file_urls', None)
+
+        # for fu in file_urls:
+        #     #../static/images/
+
+        #     splt_fu = fu.split('/')
+        #     new_url = "../static/images/uploads/" + splt_fu[-1]
+        #     new_image = ImageChoice(url=new_url)
+
+        #     db.session.add(new_image)
+        #     print(new_image)
+        #     db.session.commit()
+
+                
+        #     session['file_urls'] = file_urls
+        #  session['file_urls'] = []
+        # return redirect('/')
+        ### END MAYBE ###   
+
         newimages = request.form.getlist('imagelist')
         glitchtype = request.form.get('glitchtype')
 
-
+       
 
 
         # image1 = Image.open(request.form.get("imagelist")[3:])
