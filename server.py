@@ -59,7 +59,7 @@ app.config['DROPZONE_REDIRECT_VIEW'] = 'results'
 
 
 # Uploads settings
-app.config['UPLOADED_PHOTOS_DEST'] = os.getcwd() + '/../static/images/uploads'
+app.config['UPLOADED_PHOTOS_DEST'] = os.getcwd() + '/static/images/uploads'
 photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 patch_request_class(app)  # set maximum file size, default is 16MB
@@ -200,6 +200,7 @@ def results():
 
 @app.route('/mainpage', methods = ["GET", "POST"])
 def mainpage():
+    
 
     images = ImageChoice.query.all()
     
@@ -266,6 +267,7 @@ def mainpage():
 
 
         return render_template("glitchpage.html", images = images, oldImage = (request.form.get("imagelist")[3:]), newImage=img3String, canvas_height = canvas_height, canvas_width = canvas_width)
+
 
 
 

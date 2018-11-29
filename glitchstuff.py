@@ -32,7 +32,7 @@ def pixelate_two(imgA, imgB, cellsize):
                 imgC.paste(region,box)
 
 
-    # imgC.save(str(datetime.now())+".jpg")
+    # imgC.save(str(datetime.now())+".png")
 
     return imgC
 
@@ -147,10 +147,10 @@ def animate_two(imgA, imgB, cellsize, frames, savestring):
 
     images = []
     for frame in range(frames):
-        # pixelate_two_with_matrix(imgA, imgB, cellsize, frames, cellular_auto).save(str(frame)+".jpg")
+        # pixelate_two_with_matrix(imgA, imgB, cellsize, frames, cellular_auto).save(str(frame)+".png")
         cellular_auto= np.roll(cellular_auto, 1, axis=0)
         cellular_auto = np.roll(cellular_auto, 2, axis=1)
-        # images.append(Image.open(str(frame)+".jpg"))
+        # images.append(Image.open(str(frame)+".png"))
         new_image = pixelate_two_with_matrix(imgA, imgB, cellsize, frames, cellular_auto)
         images.append(new_image)
 
@@ -223,7 +223,7 @@ def doub_vert_stripes(img, stripes, savestring):
         region = img.crop(crop_box)
 
         new_img.paste(region, paste_box)
-    new_img.save(savestring+".jpg") 
+    new_img.save(savestring+".png") 
     return new_img  
 
 
@@ -239,7 +239,7 @@ def doub_hor_stripes(img, stripes, savestring):
         region = img.crop(crop_box)
 
         new_img.paste(region, paste_box)
-    new_img.save(savestring+".jpg")
+    new_img.save(savestring+".png")
 
     return new_img   
 
