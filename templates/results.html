@@ -1,0 +1,13 @@
+# templates/results.html
+<h1>Hello Results Page!</h1>
+<a href="{{ url_for('index') }}">Back</a><p>
+<ul>
+{% for file_url in file_urls %}
+    <li><img style="height: 150px" src="{{ file_url }}"></li>
+{% endfor %}
+
+<br>
+<a href="/mainpage"> take me back to the glitch zone </a>
+
+
+</ul>

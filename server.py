@@ -319,8 +319,13 @@ def allowed_file(filename):
 @app.route('/imageUpload', methods=['GET', 'POST'])
 def upload_file():
 
-    print(request.form.get('dropzoneUpload'), request.files, "*************&&&&&&&&&&&&&&&&&&")
-    new_image = Image.open(request.form.get('dropzoneUpload'))
+
+    if (request.form.get('dropzoneUpload')):
+        new_image = Image.open(request.form.get('dropzoneUpload'))
+    # if (request.form.get('upFromURL')):
+    #     print(request.form.get('fromURL'), "**********")
+    #     new_image = Image.open(request.form.get('upFromURL'))
+    
     new_image.save('UPLOAD_FOLDER'+filename)
 
 

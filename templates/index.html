@@ -1,0 +1,40 @@
+
+
+
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+<!-- <head>
+        <title>Flask App</title>
+        {{ dropzone.load() }}
+        {{ dropzone.style('border: 2px dashed #0087F7; margin: 10%; min-height: 400px;') }}
+    </head> -->
+
+<h1> WELCOME </h1>
+
+<a href="/mainpage"> Click here to go get glitchin' ! </a>
+
+
+
+    <body>
+        {{ dropzone.create(action_view='index') }}
+
+
+
+
+
+
+
+</body>
+
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,57 @@
+
+
+
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+<!-- <head>
+        <title>Flask App</title>
+        {{ dropzone.load() }}
+        {{ dropzone.style('border: 2px dashed #0087F7; margin: 10%; min-height: 400px;') }}
+    </head> -->
+
+<h1> WELCOME </h1>
+
+<strong>Note, by uploading an image you will automatically be adding it to the databease for all users to see and use. Be mindfull.</strong>
+<br>
+<a href="/mainpage">Yikes! Click here to go back to glitchin' ! </a>
+
+
+        {{ dropzone.create(action_view='upload_image') }}
+
+
+
+
+<form action="/imageUpload" name="fromURL" id="fromURL" method="POST">
+    <!-- <button onclick="upFromURL()" name="upFromURL"> upload from URL </button> -->
+    URL: <input type="text" name="upFromURL">
+    <input type="submit">
+
+
+</form>
+
+
+<script>
+
+function upFromURL(){
+    var fromurl = prompt("Enter a URL jk not right now", "");
+    
+    return fromurl;
+
+
+}
+</script>
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
