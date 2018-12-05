@@ -7,6 +7,11 @@ from datetime import *
 
 
 
+from random import randint, shuffle
+from os import path
+import os as os
+
+
 
 
 
@@ -164,52 +169,64 @@ def animate_two(imgA, imgB, cellsize, frames, savestring):
 
 
 
+def shuffle_pic(fpath, savestring, recdepth):
 
-# def doub_vert_stripes(img, stripes, savestring):
+       
 
-#     new_img = img
-
-#     stripe_size = int(img.size[0]*2/stripes)
-
-#     for i in range(0,img.size[0]*2,stripe_size):
-
-#         crop_box = (i,0, i+2*stripe_size, img.size[1])
-#         paste_box = (2*i, 0,  int((i*2)+2*stripe_size), img.size[1] )
-#         region = img.crop(crop_box)
-
-#         new_img.paste(region, paste_box)
-#     new_img.save(savestring) 
-#     return new_img  
+    savetext = savestring
+    with open(fpath, "rb") as pic, open(savetext , "wb") as newpic: 
+        newpic.write(pic.read(1024))
+        size = path.getsize(fpath)
 
 
+        test = []
 
-# def doub_hor_stripes(img, stripes, savestring):
+        
+        for byte in pic:
+            test.append(byte)
+
+        test2=test[0:13]
+        test3=test[13:-12]
+        shuffle(test3)
+        test4=test[-12:]
+        test5 = test2+test3+test4
+
+        for i, byte in enumerate(test5):
+           
+            if randint(0,4) >3:# and i!=0:
+                try:
+                    newpic.write(byte)
+                except: 
+                    newpic.write(test[i])
+
+            else:
+                newpic.write(test[i])
+    try:
+        img = Image.open(savetext)
+        print("opened", savetext, " succesfully")
+        img.save(savetext[:-4] + ".png")
+        print(savetext[:-4] + ".png", "********************")
+        print("resaving as png and removing original")
+        # os.remove(savetext)
+        print(savetext[:-4] + ".png")
+        retImg= Image.open(savetext[:-4] + ".png")
+
+        print("\n\n\n\n", type(retImg), "\n\n\n\n")
+
+        return (savetext[:-4] + ".png")
+
+    except:
+        print("failure to open", savetext , "deleting file")
+        os.remove(savetext)
+        if recdepth < 10:
+
+            shuffle_pic(fpath, savetext, recdepth+1)
+        else:
+            print("sorry, please try again")
+            retImg = Image.open(fpath)
+            print("\n\n\n\n", type(retImg), "\n\n\n\n")
+            return retImg
     
-#     savestring = savestring[:-4]+"h"+savestring[-4:]
-
-
-#     new_img = img
-
-
-
-#     stripe_size = int(img.size[1]*2/stripes)
-
-#     for i in range(0,img.size[1]*2,stripe_size):
-
-#         crop_box = (0, i, img.size[0], i+2*stripe_size)
-#         paste_box = (0, 2*i, img.size[0], int((i*2)+2*stripe_size))
-#         region = img.crop(crop_box)
-
-#         new_img.paste(region, paste_box)
-#     new_img.save(savestring)
-
-#     return new_img   
-
-
-# def doub_grid(img, stripes, savestring):
-    
-#     return doub_hor_stripes(doub_vert_stripes(img, stripes, savestring), stripes, savestring)
-
 
 
 def doub_vert_stripes(img, stripes, savestring):
@@ -240,6 +257,8 @@ def doub_hor_stripes(img, stripes, savestring):
 
         new_img.paste(region, paste_box)
     new_img.save(savestring+".png")
+
+    print("\n\n\n\n", type(new_img), "\n\n\n\n")
 
     return new_img   
 

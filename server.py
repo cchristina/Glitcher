@@ -282,7 +282,7 @@ def mainpage():
 
 
 
-        img3String = ("./static/images/generated/"+str(datetime.now())[-6:]+".gif") 
+        img3String = ("./static/images/generated/"+str(datetime.now())[-6:]+".png") 
 
 
         if (glitchtype == "pixely"):
@@ -290,7 +290,12 @@ def mainpage():
         
         elif(glitchtype=="grid"):
             image3 = gs.doub_grid(image2, 32, img3String)
-    
+        elif(glitchtype=="shuffle"):
+            image3 = Image.open(gs.shuffle_pic(newimages[0][3:], img3String, 0))
+            app.logger.info(image3)
+
+
+        print("\n\n\n\n\n", type(image3), "\n\n\n\n\n")
         image3 = image3.resize(
             (min(800, int(image3.size[0]*800/image3.size[1])),
                 min(800, int(image3.size[1]*800/image3.size[0]))))
