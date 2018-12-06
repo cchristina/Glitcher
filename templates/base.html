@@ -12,30 +12,45 @@
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <script src="../static/scripts/imagesloaded.pkgd.min.js"></script>
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<link rel="stylesheet" type="text/css" href="../static/style/glitch.css">
+
 <link rel="stylesheet" type="text/css" href="../static/style/image-picker.css">
 <link rel="stylesheet" type="text/css" href="../static/style/dropzone.css">
 
 
-        {{ dropzone.load() }}
-        {{ dropzone.style('border: 2px dashed #0087F7; margin: 10%; min-height: 400px;') }}
+<link rel="stylesheet"
+ href="https://fonts.googleapis.com/css?family=Raleway|Ubuntu:700">
 
 
-<style>
-/*.grid-item { width: 200px; }*/
-.grid-item {
-  float: left;
-  width: 80px;
-  height: 60px;
-  border: 2px solid hsla(0, 0%, 0%, 0.5);
-}
+    {{ dropzone.load() }}
+    {{ dropzone.style('border: 2px dashed #cccccc; background-color: #333333; margin: 10%; min-height: 400px;') }}
 
-.grid-item--width2 { width: 400px; }
-</style>
+
+
+
 </head>
 
 
 
+
 <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Glitche</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="/mainpage">Glitch</a>
+      <a class="nav-item nav-link" href="/mainpage">Gallery</a>
+      <a class="nav-item nav-link" href="/uploadImage">Upload</a>
+    </div>
+  </div>
+</nav>
 
 
   {% block content %} 

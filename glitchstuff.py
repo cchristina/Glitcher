@@ -204,23 +204,24 @@ def shuffle_pic(fpath, savestring, recdepth):
     try:
         img = Image.open(savetext)
         print("opened", savetext, " succesfully")
-        img.save(savetext[:-4] + ".png")
-        print(savetext[:-4] + ".png", "********************")
-        print("resaving as png and removing original")
-        # os.remove(savetext)
-        print(savetext[:-4] + ".png")
-        retImg= Image.open(savetext[:-4] + ".png")
+        print(type(img))
+        img.save(savetext[:-4] + ".jpg")
+        # print(savetext[:-4] + ".jpg", "********************")
+        # print("resaving as something and removing original")
+        # # os.remove(savetext)
+        # print(savetext[:-4] + ".jpg")
+        # retImg= Image.open(savetext[:-4] + ".jpg")
 
-        print("\n\n\n\n", type(retImg), "\n\n\n\n")
+        # print("\n\n\n\n", type(retImg), "\n\n\n\n")
 
-        return (savetext[:-4] + ".png")
+        return (savetext[:-4] + ".jpg")
 
     except:
         print("failure to open", savetext , "deleting file")
-        os.remove(savetext)
+        # os.remove(savetext)
         if recdepth < 10:
-
-            shuffle_pic(fpath, savetext, recdepth+1)
+            print(recdepth)
+            shuffle_pic(fpath, savetext[:-4]+str(recdepth)+savetext[-4:], recdepth+1)
         else:
             print("sorry, please try again")
             retImg = Image.open(fpath)
@@ -268,6 +269,6 @@ def doub_grid(img, stripes, savestring):
     return doub_hor_stripes(doub_vert_stripes(img, stripes, savestring), stripes, savestring)
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':q
     
-    pixelate_two(img1, img2, 16)
+    # pixelate_two(img1, img2, 16)

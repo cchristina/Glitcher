@@ -12,18 +12,34 @@
         {{ dropzone.style('border: 2px dashed #0087F7; margin: 10%; min-height: 400px;') }}
     </head> -->
 
-<h1> WELCOME </h1>
+    <div class="row">
 
-<strong>Note, by uploading an image you will automatically be adding it to the databease for all users to see and use. Be mindfull.</strong>
-<br>
-<a href="/mainpage">Yikes! Click here to go back to glitchin' ! </a>
+        <div class="col-6 offset-1">
+            <h1> Bring your pictures to the table</h1>
+        </div>
+</div>
+
+<div class="row">
+    <div class="col-4 offset-1">
+        <strong>Note, by uploading an image you will automatically be adding it to the databease for all users to see and use. Be mindfull.</strong>
+        <br>
+        <a href="/mainpage">Yikes! Click here to go back to glitchin' ! </a>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-11 offset-1">
 
 
         {{ dropzone.create(action_view='upload_image') }}
 
+    </div>
+</div>
 
+<div class="row">
 
-
+<div class="col-10 offset-2">
 <form action="/imageUpload" name="fromURL" id="fromURL" method="POST">
     <!-- <button onclick="upFromURL()" name="upFromURL"> upload from URL </button> -->
     URL: <input type="text" name="upFromURL">
@@ -31,7 +47,8 @@
 
 
 </form>
-
+</div>
+</div>
 
 <script>
 

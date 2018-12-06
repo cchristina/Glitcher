@@ -9,46 +9,42 @@
 
 <!-- <h1> Eventually you will glitch pix here! </h1> -->
 
-<a href = "/"> go back home </a>
 
-<br>
-<!-- <div id="thumbnails">
-{% for image in images %}
 
-<img src ="{{image.url}}" style="max-height: 100px;" onclick="$('img#largeImage').attr('src', '{{image.url}}' );">
 
-{% endfor %}
+
+<br><br>
+<div class="row">
+    <div class="col-1 offset-1">
+        <button onclick="switchRun()">start/stop</button> 
+    </div>
+    <div class="col-1">
+        <button id="stepButton" onclick="stepGOL()">step</button>
+    </div>
+
+    <div class="col-4">   
+        <input type="range" min="1" max="1000" value="500" class="slider" id="speedControl" label="speed" style="display:none">
+    </div>
+
+    <div class="col-2 offset-1">
+        <button id="save" onclick="getURL()">save current state</button>
+    </div>
 </div>
 
-<div id="fullsize">
+<br>
 
-<img id="largeImage" src="" style="max-width: 800px; max-height: 600px;">
-
-</div> -->
-
-
-<!-- <img id="newImage" src={{newImage}} style="max-width: 800px; display: none;"> -->
-
-
-<br><br>
-<button onclick="switchRun()">start/stop</button> 
-<button id="stepButton" onclick="stepGOL()">step</button>
-<input type="range" min="1" max="1000" value="500" class="slider" id="speedControl" label="speed" style="display:none"><br>
-
-<button id="save" onclick="getURL()">save</button>
-
-
-<br><br>
-    
+<div class="row">
+ <div class ="col-md-6 offset-3">   
 <canvas  id="myCanvas" width="{{canvas_width}}" height="{{canvas_height}}" style="border:1px solid #d3d3d3;"> <!-- draggable="true" onclick= "changeCellsWithCursor"(document.getElementById('myCanvas'), (evt))"> -->
     Your browser does not support the HTML5 canvas tag.</canvas>
 
-
-
+</div>
+</div>
 <!-- <script type="text/javascript" src="../static/scripts/CA.js"> -->
     <script>
 
-// import saveAs from 'FileSaver';
+
+
 
 
 cellMatrix = populateBoard();
@@ -68,11 +64,11 @@ cellMatrix = populateBoard();
 
 
     var img = new Image();
-    img.src = "{{oldImage}}";
+    img.src = "{{newImage}}";
 
 
     var overlayImg = new Image();
-    overlayImg.src = "{{newImage}}";
+    overlayImg.src = "{{oldImage}}";
 
 
     let mouseDown = false;
@@ -265,5 +261,5 @@ function getURL(){
 
 </script>
 
-
+<br><br>
 {% endblock %}

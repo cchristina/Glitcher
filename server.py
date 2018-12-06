@@ -11,7 +11,7 @@ import os
 from datetime import datetime, timedelta 
 
 from model import ImageChoice, Glitch, connect_to_db, db
-
+import os
 
 
 
@@ -131,7 +131,10 @@ patch_request_class(app)  # set maximum file size, default is 16MB
 @app.route('/')
 def index():
     """Homepage."""
-    return render_template("home.html")
+
+    examples = os.listdir('static/images/generated/highlights')
+
+    return render_template("home.html", examples = example)
 
 
 
@@ -290,6 +293,7 @@ def mainpage():
         
         elif(glitchtype=="grid"):
             image3 = gs.doub_grid(image2, 32, img3String)
+       
         elif(glitchtype=="shuffle"):
             image3 = Image.open(gs.shuffle_pic(newimages[0][3:], img3String, 0))
             app.logger.info(image3)
