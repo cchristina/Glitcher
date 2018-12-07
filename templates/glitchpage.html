@@ -10,6 +10,26 @@
 <!-- <h1> Eventually you will glitch pix here! </h1> -->
 
 
+<style>
+
+
+
+
+.slider {
+    -webkit-appearance: none;
+    width: 50%;
+    height: 5px;
+    border-radius: 10px;   
+    background: #fff;
+    outline:    none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+
+
+</style>
 
 
 
@@ -22,8 +42,9 @@
         <button id="stepButton" onclick="stepGOL()">step</button>
     </div>
 
-    <div class="col-4">   
-        <input type="range" min="1" max="1000" value="500" class="slider" id="speedControl" label="speed" style="display:none">
+    <div class="col-5" style="align-content: center;">     
+        <!-- <label for="speedControl" id="speedLabel" style="display:none;">Speed</label>         -->
+        <input type="range" min="1" max="1000" value="500" class="slider" id="speedControl" name="speedControl" label="speed" style="display:none">
     </div>
 
     <div class="col-2 offset-1">
@@ -92,46 +113,6 @@ slider.oninput = function() {
 
 
 
-    // function changeCellsWithCursor(canvas, event) {
-
-    //     var boundingRect = canvas.getBoundingClientRect();
-    //     var x = Math.floor((event.clientX - boundingRect.left)/cellSize) +2; //+1;
-    //     var y = Math.floor((event.clientY - boundingRect.top)/cellSize)+1;
-    //     // var x = Math.floor((event.offsetX)/cellSize)+1;
-    //     // var y = Math.floor((event.offsetY)/cellSize);
-
-    //     let slot = y*matrixSize+x
-
-    //     var eType = event.type
-
-    //     if (eType == "click"){
-                
-    //             flipCell(x,y);
-    //             displayRects(overlayImg)
-    //          }
-
-
-    //     if (mouseDown  && !justChanged.includes(slot)) {
-                
-
-    //                 // flipCell(x,y);
-
-    //                 if (!event.shiftKey){
-    //                   cellMatrix[x][y] = 1;  
-    //                 }else{
-
-    //                     cellMatrix[x][y] = 0; 
-    //                 }
-                    
-    //                 justChanged.push(slot);
-    //                 displayRects(overlayImg)
-
-
-
-
-    //     }
-
-    // }
 
 
     function changeCellWithClick(canvas, event){
@@ -207,6 +188,12 @@ function isMouseUp(event){
           x.style.display = "none";
         }
         x = document.getElementById("speedControl");
+        if (x.style.display === "none") {
+             x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+          x = document.getElementById("speedLabel");
         if (x.style.display === "none") {
              x.style.display = "block";
         } else {

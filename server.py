@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 
 from model import ImageChoice, Glitch, connect_to_db, db
 import os
-
+from random import choice
 
 
 # from glitchstuff import *
@@ -133,8 +133,13 @@ def index():
     """Homepage."""
 
     examples = os.listdir('static/images/generated/highlights')
+    print(examples)
+    
 
-    return render_template("home.html", examples = example)
+    examples = ["../static/images/generated/highlights/" + example for example in examples if example !=".DS_Store"]
+    print(examples)
+
+    return render_template("home.html", examples = choice(examples))
 
 
 
@@ -289,17 +294,22 @@ def mainpage():
 
 
         if (glitchtype == "pixely"):
-           image3 = gs.pixelate_two_alt(image1, image2, 8, img3String) 
+           image3 = gs.pixelate_two_alt(image1, image2, 8, img3String)
+           oldImage = (request.form.get("imagelist")[3:])
+           newImage=img3String
         
         elif(glitchtype=="grid"):
-            image3 = gs.doub_grid(image2, 32, img3String)
+            image3 = gs.doub_grid(image1, 32, img3String)
+            oldImage = img3String
+            newImage=(request.form.get("imagelist")[3:])
        
         elif(glitchtype=="shuffle"):
             image3 = Image.open(gs.shuffle_pic(newimages[0][3:], img3String, 0))
             app.logger.info(image3)
+            oldImage = (request.form.get("imagelist")[3:])
+            newImage=img3String
 
 
-        print("\n\n\n\n\n", type(image3), "\n\n\n\n\n")
         image3 = image3.resize(
             (min(800, int(image3.size[0]*800/image3.size[1])),
                 min(800, int(image3.size[1]*800/image3.size[0]))))
@@ -316,7 +326,7 @@ def mainpage():
 
 
 
-        return render_template("glitchpage.html", images = images, oldImage = (request.form.get("imagelist")[3:]), newImage=img3String, canvas_height = canvas_height, canvas_width = canvas_width)
+        return render_template("glitchpage.html", images = images, oldImage = oldImage, newImage=newImage, canvas_height = canvas_height, canvas_width = canvas_width)
 
 
 

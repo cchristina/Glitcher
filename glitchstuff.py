@@ -259,14 +259,17 @@ def doub_hor_stripes(img, stripes, savestring):
         new_img.paste(region, paste_box)
     new_img.save(savestring+".png")
 
-    print("\n\n\n\n", type(new_img), "\n\n\n\n")
+
 
     return new_img   
 
 
 def doub_grid(img, stripes, savestring):
-    
-    return doub_hor_stripes(doub_vert_stripes(img, stripes, savestring), stripes, savestring)
+    newimg = doub_hor_stripes(doub_vert_stripes(img, stripes, savestring), stripes, savestring)
+    newimg.thumbnail((800,800))
+    return newimg
+
+    # return doub_hor_stripes(doub_vert_stripes(img, stripes, savestring), stripes, savestring).thumbnail((800,800))
 
 
 # if __name__ == '__main__':q
