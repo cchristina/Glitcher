@@ -36,10 +36,10 @@
 <br><br>
 <div class="row">
     <div class="col-1 offset-1">
-        <button onclick="switchRun()">start/stop</button> 
+        <button onclick="switchRun()" id="startstop">start/stop</button> 
     </div>
     <div class="col-1">
-        <button id="stepButton" onclick="stepGOL()">step</button>
+        <button id="stepButton" alt="step through one generation of game of life" onclick="stepGOL()">step</button>
     </div>
 
     <div class="col-5" style="align-content: center;">     
@@ -55,194 +55,191 @@
 <br>
 
 <div class="row">
- <div class ="col-md-6 offset-3">   
-<canvas  id="myCanvas" width="{{canvas_width}}" height="{{canvas_height}}" style="border:1px solid #d3d3d3;"> <!-- draggable="true" onclick= "changeCellsWithCursor"(document.getElementById('myCanvas'), (evt))"> -->
-    Your browser does not support the HTML5 canvas tag.</canvas>
+    <div class="col-2 offset-1" id="howto">
+        Here you can either step through each generation of the Game of Life or just let it run. The slider bar controls the speed.
+    </div>
+    <div class ="col-md-6">   
+        <canvas  id="myCanvas" width="{{canvas_width}}" height="{{canvas_height}}" style="border:1px solid #d3d3d3;"> <!-- draggable="true" onclick= "changeCellsWithCursor"(document.getElementById('myCanvas'), (evt))"> -->
+        Your browser does not support the HTML5 canvas tag.</canvas>
 
-</div>
+    </div>
 </div>
 <!-- <script type="text/javascript" src="../static/scripts/CA.js"> -->
     <script>
+    // if (Boolean("{{dogol}}"))   
 
 
+    if ("{{dogol}}" == "True"){
 
+                cellMatrix = populateBoard();
 
+    }else{
 
-cellMatrix = populateBoard();
-// cellMatrix = oneDBoard(populateOneD(), 110);
-
-
-//     window.onload = function() {
-//     var canvas = document.getElementById("myCanvas");
-//     var ctx = canvas.getContext("2d");
-
-                
-// };
-    var c = document.getElementById("myCanvas");
-    var ctx = c.getContext("2d");
-
-    
-
-
-    var img = new Image();
-    img.src = "{{newImage}}";
-
-
-    var overlayImg = new Image();
-    overlayImg.src = "{{oldImage}}";
-
-
-    let mouseDown = false;
-
-    let justChanged = []
-
-
-    var slider = document.getElementById("speedControl");
-
-    let speed = 1000 - slider.value;
-
-    // output.innerHTML = slider.value; // Display the default slider value
-
-// Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
-    // output.innerHTML = this.value;
-    console.log(this.value);
-    speed = 1000 - this.value;
-}
-
-
-
-
-
-
-    function changeCellWithClick(canvas, event){
-
-        var boundingRect = canvas.getBoundingClientRect();
-        var x = Math.floor((event.clientX - boundingRect.left)/cellSize)+1;
-        var y = Math.floor((event.clientY - boundingRect.top)/cellSize);
-
-
-     
-        flipCell(x,y);
-        displayRects(overlayImg)
-    }
- 
-
-myCanvas.addEventListener("mousemove", function (e) { changeCellsWithCursor(myCanvas, e);});
-myCanvas.addEventListener("click", function (e) { changeCellsWithCursor(myCanvas, e);});
-
-myCanvas.addEventListener("mousedown", function(e) {isMouseDown(e)});
-myCanvas.addEventListener("mouseup", function(e) {isMouseUp(e)});
-
-function isMouseDown(event){
-
-
-    mouseDown = true;
-    return true;
-}
-
-function isMouseUp(event){
-
-    mouseDown = false;
-    justChanged = []
-    return true;
-}
-
-
-
-
-    (function caLoop (i) {          
-        setTimeout(function () {   
-
-            if (willRun)
-            {
-                cellMatrix = gameOfLifeRound(cellMatrix);
-            }
-
-            ctx.drawImage(img, 0, 0, 800, 800);
-            displayRects(overlayImg);
-
-            ;
-
-        if (--i) caLoop(i);      
-        }, speed) //100)
-    })(5000);  
-
-
-    function stepGOL(){
-
-        cellMatrix = gameOfLifeRound(cellMatrix);
-    }
-
-
-    let willRun = false;
-
-    function switchRun(){
-
-        willRun = !willRun;
-
+        // $(".startstop").style.display = none;
+        // $(".stepButton").style.display =none;
         var x = document.getElementById("stepButton");
-        if (x.style.display === "none") {
-             x.style.display = "block";
-        } else {
-          x.style.display = "none";
-        }
-        x = document.getElementById("speedControl");
-        if (x.style.display === "none") {
-             x.style.display = "block";
-        } else {
-          x.style.display = "none";
-        }
-          x = document.getElementById("speedLabel");
-        if (x.style.display === "none") {
-             x.style.display = "block";
-        } else {
-          x.style.display = "none";
+        x.style.display = "none"
+        var x = document.getElementById("startstop");
+        x.style.display = "none"
+        var x = document.getElementById("howto");
+        x.innerHTML="This is your static glitched image!";
+        var x = document.getElementById("save");
+        x.innerHTML="save image"
+
+
         }
 
 
-    }
+
+        // };
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
 
 
-function getURL(){
-    let canvas = document.getElementById('myCanvas');
-    let url = canvas.toDataURL();
-
-    // return url;
-
-    // console.log(dataURL);
-    // window.open(canvas.toDataURL());
-
-    var savefile = prompt("What would you like to save as? Be careful not to overwrite anything!", "myglitch");
-    // saveAs(url, savefile + ".png");
-    var a = document.createElement("a");
-    a.href = url;
-    fileName = url.split("/").pop();
-    a.download = savefile;
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-    a.remove();
-}
-
-// function saveImage(){
-
-//     let canvas = document.getElementById('myCanvas');
-
-//     var link = document.createElement("a");
-
-//     link.download = "image.png";
-
-//     canvas.toBlob(function(blob){
-//     link.href = URL.createObjectURL(blob);
-//     console.log(blob);
-//     console.log(link.href); // this line should be here
-//   },'image/png');
 
 
-//   link.click();
+        var img = new Image();
+        img.src = "{{newImage}}";
 
-// }
+
+        var overlayImg = new Image();
+        overlayImg.src = "{{oldImage}}";
+
+
+        let mouseDown = false;
+
+        let justChanged = []
+
+
+        var slider = document.getElementById("speedControl");
+
+        let speed = 1000 - slider.value;
+
+            // output.innerHTML = slider.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider.oninput = function() {
+            // output.innerHTML = this.value;
+            console.log(this.value);
+            speed = 1000 - this.value;
+        }
+
+
+
+
+
+
+        function changeCellWithClick(canvas, event){
+
+            var boundingRect = canvas.getBoundingClientRect();
+            var x = Math.floor((event.clientX - boundingRect.left)/cellSize)+1;
+            var y = Math.floor((event.clientY - boundingRect.top)/cellSize);
+
+
+
+            flipCell(x,y);
+            displayRects(overlayImg)
+        }
+
+
+        myCanvas.addEventListener("mousemove", function (e) { changeCellsWithCursor(myCanvas, e);});
+        myCanvas.addEventListener("click", function (e) { changeCellsWithCursor(myCanvas, e);});
+
+        myCanvas.addEventListener("mousedown", function(e) {isMouseDown(e)});
+        myCanvas.addEventListener("mouseup", function(e) {isMouseUp(e)});
+
+        function isMouseDown(event){
+
+
+            mouseDown = true;
+            return true;
+        }
+
+        function isMouseUp(event){
+
+            mouseDown = false;
+            justChanged = []
+            return true;
+        }
+
+
+
+
+        (function caLoop (i) {          
+            setTimeout(function () {   
+
+                if (willRun)
+                {
+                    cellMatrix = gameOfLifeRound(cellMatrix);
+                }
+
+                ctx.drawImage(img, 0, 0, 800, 800);
+                displayRects(overlayImg);
+
+                ;
+
+                if (--i) caLoop(i);      
+                }, speed) //100)
+        })(5000);  
+
+
+        function stepGOL(){
+
+            cellMatrix = gameOfLifeRound(cellMatrix);
+        }
+
+
+        let willRun = false;
+
+        function switchRun(){
+
+            willRun = !willRun;
+
+            var x = document.getElementById("stepButton");
+            if (x.style.display === "none") {
+               x.style.display = "block";
+           } else {
+              x.style.display = "none";
+          }
+          x = document.getElementById("speedControl");
+          if (x.style.display === "none") {
+           x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+        x = document.getElementById("speedLabel");
+        if (x.style.display === "none") {
+           x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+
+
+        }
+
+
+        function getURL(){
+            let canvas = document.getElementById('myCanvas');
+            let url = canvas.toDataURL();
+
+            // return url;
+
+            // console.log(dataURL);
+            // window.open(canvas.toDataURL());
+
+            var savefile = prompt("What would you like to save as? Be careful not to overwrite anything!", "myglitch");
+            // saveAs(url, savefile + ".png");
+            var a = document.createElement("a");
+            a.href = url;
+            fileName = url.split("/").pop();
+            a.download = savefile;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+        }
+
+
 
 
 

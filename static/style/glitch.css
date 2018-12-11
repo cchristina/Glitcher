@@ -1,0 +1,35 @@
+
+
+.grid-item {
+  float: left;
+  width: 80px;
+  height: 60px;
+  border: 2px solid hsla(0, 0%, 0%, 0.5);
+}
+
+.grid-item--width2 { 
+  width: 600px; 
+}
+
+
+body { 
+    font-family: "Raleway", sans-serif;
+    color: #eee;
+    /*background-image: url("../static/images/style/inflicted/inflicted.png");*/
+    background-image: url("../images/style/light_wool/light_wool.png");
+
+
+     }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Ubuntu", serif;
+  color: #eee;
+  font-weight:  700;
+}
+
+a {
+
+    color: #aaa;
+
+}
+

@@ -261,6 +261,9 @@ def mainpage():
 
         newimages = request.form.getlist('imagelist')
         glitchtype = request.form.get('glitchtype')
+        gameoflifevar = bool(request.form.get('gameoflife'))
+
+        print("\n\n\n", gameoflifevar, "\n\n\n")
 
        
 
@@ -300,8 +303,9 @@ def mainpage():
         
         elif(glitchtype=="grid"):
             image3 = gs.doub_grid(image1, 32, img3String)
-            oldImage = img3String
-            newImage=(request.form.get("imagelist")[3:])
+            newImage = img3String
+            
+            oldImage=(request.form.get("imagelist")[3:])
        
         elif(glitchtype=="shuffle"):
             image3 = Image.open(gs.shuffle_pic(newimages[0][3:], img3String, 0))
@@ -326,7 +330,7 @@ def mainpage():
 
 
 
-        return render_template("glitchpage.html", images = images, oldImage = oldImage, newImage=newImage, canvas_height = canvas_height, canvas_width = canvas_width)
+        return render_template("glitchpage.html", images = images, oldImage = oldImage, newImage=newImage, canvas_height = canvas_height, canvas_width = canvas_width, dogol = gameoflifevar)
 
 
 

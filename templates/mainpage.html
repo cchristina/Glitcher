@@ -7,17 +7,17 @@
 
 <div class="row">
   <div class="col-6 offset-1">
-    <h1> Something catchy about glitching </h1>
+    <h1> Glitch things  </h1>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-6 offset-6">
-  <h4> choose one or two images to glitch!</h4><br>
+  <div class="col-6 offset-4" style="text-align: right;">
+  <h4> choose one or two images to glitch</h4><br>
 </div>
 </div>
-<div class="row">
-  <div class="col-6 offset-6">
+<div class="row"> 
+  <div class="col-6 offset-4" style="text-align: right;">
 
 Don't like any of these images? <a href="/uploadImage">Click here to upload your own.</a>
 </div>
@@ -32,7 +32,8 @@ Don't like any of these images? <a href="/uploadImage">Click here to upload your
 
 <!-- <div style="height:400px; overflow-y: scroll;"> -->
   <div class="row">
-  <div class="col-9 offset-1" style="height: 400px; overflow-y: scroll;">
+
+  <div class="col-8 offset-2" style="height: 400px; overflow-y: scroll;">
 
 <select class="image-picker masonry grid show-html" data-limit="2" multiple="multiple" name="imagelist" id="imagelist">
        {% for image in images %}
@@ -52,15 +53,31 @@ Don't like any of these images? <a href="/uploadImage">Click here to upload your
 
 </div>
 <div class="row">
-  <div class="col-2 offset-1">
+  <div class="col-3 offset-1">
 
-    <input type="radio" name="glitchtype" value="grid"> grid <br>
-    <input type="radio" name="glitchtype" value="pixely"> pixely <br>
-    <input type="radio" name="glitchtype" value="shuffle"> shuffle <br>
+    <table>
+      <tr>
+        <td><input type="radio" name="glitchtype" value="pixely"> pixely </td><td><em>takes one or two</em> </td>
+      </tr>
+      <tr>
+        <td><input type="radio" name="glitchtype" value="grid"> grid </td><td><em>one reccommended</em> </td>
+      </tr>
+      <tr>
+        <td><input type="radio" name="glitchtype" value="shuffle"> shuffle </td><td><em> takes only one</em></td>
+      </tr>
+    </table>
 
 
-    <input type="submit" value="submit">
 </div>
+<div class="col-3">
+    <input type="checkbox" name="gameoflife" value="gameoflife"> Check to include Game of Life in the glitch
+
+</div>
+</div>
+<div class="row">
+  <div class="col-3 offset-1">
+    <input type="submit" value="submit">
+  </div>
 </div>
 </form>
 
