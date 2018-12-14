@@ -15,7 +15,7 @@ def load_images():
     ImageChoice.query.delete()
 
     # Read u.user file and insert data
-    for row in open("static/seed_data/images"):
+    for row in open("static/seed_data/images2"):
         row = row.rstrip()
         image_id , image_path = row.split("|")
         image = ImageChoice(image_id=image_id, url=image_path)

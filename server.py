@@ -302,10 +302,16 @@ def mainpage():
            newImage=img3String
         
         elif(glitchtype=="grid"):
+            print("grrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
             image3 = gs.doub_grid(image1, 32, img3String)
             newImage = img3String
             
-            oldImage=(request.form.get("imagelist")[3:])
+            if (len(newimages) ==2):
+                oldImage = newimages[1][3:]
+            else:
+                oldImage = newimages[0][3:]
+
+                # oldImage=(request.form.get("imagelist")[1][3:])
        
         elif(glitchtype=="shuffle"):
             image3 = Image.open(gs.shuffle_pic(newimages[0][3:], img3String, 0))
@@ -357,7 +363,7 @@ def upload_file():
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
     # point that we invoke the DebugToolbarExtension
-    app.debug = True
+    # app.debug = True
     # make sure templates, etc. are not cached in debug mode
     app.jinja_env.auto_reload = app.debug
 
